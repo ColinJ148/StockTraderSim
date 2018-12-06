@@ -3,7 +3,6 @@ package sample;
 import java.net.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-
 import java.util.Date;
 import java.util.Scanner;
 
@@ -64,10 +63,11 @@ class StockQuote {
   }
 
 
-  public double [] getPriceHistory() {
+  public double[] getPriceHistory() {
     URLConnection connection;
     try {
-      connection = new URL("https://finance.yahoo.com/quote/" + ticker + "/history?p=" + ticker).openConnection();
+      connection = new URL("https://finance.yahoo.com/quote/" + ticker + "/history?p=" + ticker)
+          .openConnection();
       Scanner scanner = new Scanner(connection.getInputStream());
       scanner.useDelimiter("\\Z");
       historyContent = scanner.next();
@@ -108,9 +108,19 @@ class StockQuote {
     for (int i = 0; i < 50; i++) {
       if (Integer.parseInt(day) < 10 && Integer.parseInt(day) >= 1) {
         day = "0" + day;
+        try {
+          if (day.equals("00" + day.substring(2, 3))) {
+            day = day.substring(1);
+          }
+        }catch(Exception e){
+
+        }
       } else if (Integer.parseInt(day) == 0) {
-        dateOfInterest.replace(0, 3, "Oct");
-        day = "31";
+        dateOfInterest.replace(0, 3, "Nov");
+        day = "30";
+        /**
+         * THIS IS IMPORTANT
+         */
       }
       dateOfInterest.replace(4, 6, String.valueOf(day));
       pastDate = dateOfInterest.toString();
@@ -173,7 +183,7 @@ class StockQuote {
     System.out.println("Price change on the trading day: " + test.getPriceChange());
     System.out.println("price history stored in a array");
     System.out.println("-------------------------------------");
-    for (int i = 0; i < prices.length-1; i++){
+    for (int i = 0; i < prices.length - 1; i++) {
       System.out.println(prices[i]);
     }
 
