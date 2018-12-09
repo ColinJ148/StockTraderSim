@@ -97,6 +97,7 @@ public class Controller {
       ErrorCode.setText("Not enough Cash for order");
     }
     netWorthCalc();
+    updatePrices();
   }
 
 
@@ -138,11 +139,8 @@ public class Controller {
   private void netWorthCalc() {
     networth = cash + portfolioValue;
     netWorth.setText(Double.toString(networth));
-    Cash.setText("10000");
+    Cash.setText(Double.toString(cash));
     portValue.setText(Double.toString(portfolioValue));
-
-
-
   }
 
 
