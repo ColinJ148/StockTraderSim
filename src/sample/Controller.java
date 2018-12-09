@@ -15,7 +15,7 @@ public class Controller {
   @FXML
   private Text Cash;
   @FXML
-  private Text ErrorCode;
+  public Text ErrorCode;
   @FXML
   private TextField userTickerSymbol;   //Ticker user wants to buy or sell
   @FXML
@@ -60,12 +60,36 @@ public class Controller {
   private Text walmartPrice;
   @FXML
   private Text walmartPriceChange;
+  @FXML
+  private Text holdingsOne;
+  @FXML
+  private Text holdingsTwo;
+  @FXML
+  private Text holdingsThree;
+  @FXML
+  private Text holdingsFour;
+  @FXML
+  private Text holdingsFive;
+  @FXML
+  private Text holdingsSix;
+  @FXML
+  private Text holdingsSeven;
+  @FXML
+  private Text holdingsEight;
+  @FXML
+  private Text holdingsNine;
+  @FXML
+  private Text holdingsTen;
+  @FXML
+  private Text holdingsEleven;
 
-
+  String tickerSymbols[] = {"TSLA", "GE", "SNAP", "AMD", "V", "VZ", "TWTR",
+      "INTC", "DIS", "WMT"};
   private double cash = 10000;
   private double portfolioValue = 0;
   private double networth = 10000;
   private double orderTotal;
+  private String ticker = null;
   private String[] price = new String[10];
   StockQuote tsla = new StockQuote("TSLA");
   StockQuote ge = new StockQuote("GE");
@@ -143,10 +167,7 @@ public class Controller {
 
 
   private void orderInfo() {
-    String ticker = null;
-    String tickerSymbols[] = {"TSLA", "GE", "SNAP", "AMD", "V", "VZ", "TWTR",
-        "INTC", "DIS", "WMT"};
-    String value = null;
+    String value;
 
     int shareAmt = 0;
     try {
@@ -167,10 +188,22 @@ public class Controller {
     //   ErrorCode.setText("Please enter valid ticker Symbol");
   }
 
+  private void updateHoldings(int shareAmt){
+    holdingsTwo.setText(ticker + " " + shareAmt);
+  }
+
 
   @FXML
   public void onStockSell() {
 
+     orderInfo();
+
+     cash += orderTotal;
+     portfolioValue -= orderTotal;
+
+
+
+     netWorthCalc();
   }
 
   private void netWorthCalc() {
