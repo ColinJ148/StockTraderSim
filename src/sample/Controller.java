@@ -21,29 +21,45 @@ public class Controller {
   @FXML
   private TextField userShareAmt;       //Amount of shares users wants to buy or sell
   @FXML
-  private Text stockOneName;
+  private Text tslaPrice;
   @FXML
-  private Text stockOnePrice;
+  private Text tslaPriceChange;
   @FXML
-  private Text stockOnePriceChange;
+  private Text gePrice;
   @FXML
-  private Text stockTwoName;
+  private Text gePriceChange;
   @FXML
-  private Text stockTwoPrice;
+  private Text snapPrice;
   @FXML
-  private Text stockTwoPriceChange;
+  private Text snapPriceChange;
   @FXML
-  private Text stockThreeName;
+  private Text amdPrice;
   @FXML
-  private Text stockThreePrice;
+  private Text amdPriceChange;
   @FXML
-  private Text stockThreePriceChange;
+  private Text visaPrice;
   @FXML
-  private Text stockFourName;
+  private Text visaPriceChange;
   @FXML
-  private Text stockFourPrice;
+  private Text verizonPrice;
   @FXML
-  private Text stockFourPriceChange;
+  private Text verizonPriceChange;
+  @FXML
+  private Text twitterPrice;
+  @FXML
+  private Text twitterPriceChange;
+  @FXML
+  private Text intelPrice;
+  @FXML
+  private Text intelPriceChange;
+  @FXML
+  private Text disneyPrice;
+  @FXML
+  private Text disneyPriceChange;
+  @FXML
+  private Text walmartPrice;
+  @FXML
+  private Text walmartPriceChange;
 
 
   private double cash = 10000;
@@ -51,6 +67,16 @@ public class Controller {
   private double networth = 10000;
   private double orderTotal;
   private String[] price = new String[10];
+  StockQuote tsla = new StockQuote("TSLA");
+  StockQuote ge = new StockQuote("GE");
+  StockQuote snap = new StockQuote("SNAP");
+  StockQuote amd = new StockQuote("AMD");
+  StockQuote visa = new StockQuote("V");
+  StockQuote verizon = new StockQuote("VZ");
+  StockQuote twitter = new StockQuote("TWTR");
+  StockQuote intel = new StockQuote("INTC");
+  StockQuote disney = new StockQuote("DIS");
+  StockQuote walmart = new StockQuote("WMT");
 
   public Controller() {
 
@@ -59,31 +85,46 @@ public class Controller {
 
   @FXML
   private void updatePrices() {
-    StockQuote tsla = new StockQuote("TSLA");
-    StockQuote ge = new StockQuote("GE");
-    StockQuote snap = new StockQuote("SNAP");
-    StockQuote amd = new StockQuote("AMD");
 
-    stockOneName.setText("Tesla (TSLA)");
-    stockOnePrice.setText(tsla.getPrice());
-    stockOnePriceChange.setText(tsla.getPriceChange());
-    price[0]=tsla.getPrice();
+    tslaPrice.setText(tsla.getPrice());
+    tslaPriceChange.setText(tsla.getPriceChange());
+    price[0] = tsla.getPrice();
 
-    stockTwoName.setText("General Electric (GE)");
-    stockTwoPrice.setText(ge.getPrice());
-    stockTwoPriceChange.setText(ge.getPriceChange());
-    price[1]=ge.getPrice();
+    gePrice.setText(ge.getPrice());
+    gePriceChange.setText(ge.getPriceChange());
+    price[1] = ge.getPrice();
 
-    stockThreeName.setText("Snapchat (SNAP)");
-    stockThreePrice.setText(snap.getPrice());
-    stockThreePriceChange.setText(snap.getPriceChange());
-    price[2]=snap.getPrice();
+    snapPrice.setText(snap.getPrice());
+    snapPriceChange.setText(snap.getPriceChange());
+    price[2] = snap.getPrice();
 
-    stockFourName.setText("Advanced Micro Devices (AMD)");
-    stockFourPrice.setText(amd.getPrice());
-    stockFourPriceChange.setText(amd.getPriceChange());
-    price[3]=amd.getPrice();
+    amdPrice.setText(amd.getPrice());
+    amdPriceChange.setText(amd.getPriceChange());
+    price[3] = amd.getPrice();
 
+    visaPrice.setText(visa.getPrice());
+    visaPriceChange.setText(visa.getPriceChange());
+    price[4] = visa.getPrice();
+
+    verizonPrice.setText(verizon.getPrice());
+    verizonPriceChange.setText(verizon.getPriceChange());
+    price[5] = verizon.getPrice();
+
+    twitterPrice.setText(twitter.getPrice());
+    twitterPriceChange.setText(twitter.getPriceChange());
+    price[6] = twitter.getPrice();
+
+    intelPrice.setText(intel.getPrice());
+    intelPriceChange.setText(intel.getPriceChange());
+    price[7] = intel.getPrice();
+
+    disneyPrice.setText(disney.getPrice());
+    disneyPriceChange.setText(disney.getPriceChange());
+    price[8] = disney.getPrice();
+
+    walmartPrice.setText(walmart.getPrice());
+    walmartPriceChange.setText(walmart.getPriceChange());
+    price[9] = walmart.getPrice();
 
   }
 
@@ -101,11 +142,11 @@ public class Controller {
   }
 
 
-
   private void orderInfo() {
     String ticker = null;
-    String tickerSymbols[] = {"TSLA", "GE", "SNAP", "AMD"};
-    String value=null;
+    String tickerSymbols[] = {"TSLA", "GE", "SNAP", "AMD", "V", "VZ", "TWTR",
+        "INTC", "DIS", "WMT"};
+    String value = null;
 
     int shareAmt = 0;
     try {
@@ -123,12 +164,8 @@ public class Controller {
       }
     }
 
-
- //   ErrorCode.setText("Please enter valid ticker Symbol");
+    //   ErrorCode.setText("Please enter valid ticker Symbol");
   }
-
-
-
 
 
   @FXML
