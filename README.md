@@ -1,5 +1,5 @@
 #Stock Trader Simulator
-<h3>Introduction</h>
+<h4>Introduction</h>
 
 
 The whole purpose of this project is to allow people who don't know much about the stock market
