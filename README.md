@@ -1,11 +1,11 @@
 #Stock Trader Simulator
 <h2>Introduction</h>
-
+<p>
 The whole purpose of this project is to allow people who don't know much about the stock market
 and allowing them to learn about it without risking there hard earned money. It can be intimidating 
 for someone to put a part of their income into something they really don't understand. This "paper trading" 
 account lets them see whats its like to invest their "money" and watch it grow.
-
+</p>
 
 <h4>GUI Design</h>
 
