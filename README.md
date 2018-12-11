@@ -26,5 +26,5 @@ and are unable to because a lack of cash in the account.
 <h3>
  Gif of Program
  </h>
-![](stocksimvid.gif)
+<a href="https://imgflip.com/gif/2oob0s"><img src="https://i.imgflip.com/2oob0s.gif" title="made at imgflip.com"/></a>
 
