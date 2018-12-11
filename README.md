@@ -15,13 +15,14 @@ account lets them see whats its like to invest their "money" and watch it grow.
  
  GUI Design
  </h>
+ <p>
 
 The design is tailored to user with less experience in the stock market so I chose to just have the 
 prices and changes of prices displayed a long with the company name and their ticker symbol. I didn't
  want to use fancy charts or anything of that nature because it can become very overwhelming to a new trader
  I used big red text whenever the user tried to do something that wasn't possible like trying to buy more stocks
 and are unable to because a lack of cash in the account.
-
+</p)
 <h3>
  Gif of Program
  </h>
