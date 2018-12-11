@@ -1,5 +1,7 @@
-#Stock Trader Simulator
-<h4>Introduction</h>
+# Stock Trader Simulator
+<h3>
+ Introduction
+ </h>
 
 
 The whole purpose of this project is to allow people who don't know much about the stock market
@@ -8,7 +10,11 @@ for someone to put a part of their income into something they really don't under
 account lets them see whats its like to invest their "money" and watch it grow.
 
 
-<h3>GUI Design</h>
+<h3>
+ 
+ 
+ GUI Design
+ </h>
 
 The design is tailored to user with less experience in the stock market so I chose to just have the 
 prices and changes of prices displayed a long with the company name and their ticker symbol. I didn't
@@ -16,6 +22,8 @@ prices and changes of prices displayed a long with the company name and their ti
  I used big red text whenever the user tried to do something that wasn't possible like trying to buy more stocks
 and are unable to because a lack of cash in the account.
 
-
+<h3>
+ Gif of Program
+ </h>
 
 
