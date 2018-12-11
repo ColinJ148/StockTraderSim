@@ -1,5 +1,6 @@
 #Stock Trader Simulator
 <h2>Introduction</h>
+
 <p>
 The whole purpose of this project is to allow people who don't know much about the stock market
 and allowing them to learn about it without risking there hard earned money. It can be intimidating 
