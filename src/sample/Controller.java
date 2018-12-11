@@ -1,21 +1,28 @@
 package sample;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
-
+/**
+ * Controller class handles all of the setting and receiving the information for the user.
+ * @Author Colin Joyce
+ */
 public class Controller {
 
-
+  @FXML
+  private Text date;
   @FXML
   private Text portValue;
   @FXML
   private Text netWorth;
   @FXML
-  private Text Cash;
+  private Text cash;
   @FXML
-  public Text ErrorCode;
+  public Text errorCode;
   @FXML
   private TextField userTickerSymbol;   //Ticker user wants to buy or sell
   @FXML
@@ -80,17 +87,22 @@ public class Controller {
   private Text holdingsNine;
   @FXML
   private Text holdingsTen;
-  @FXML
-  private Text holdingsEleven;
-
-  String tickerSymbols[] = {"TSLA", "GE", "SNAP", "AMD", "V", "VZ", "TWTR",
+  public List<Text> holdings = new ArrayList<Text>() {
+    //arraylist to track what stocks the users owns.
+  };
+  String tickerSymbols []={"TSLA", "GE", "SNAP", "AMD", "V", "VZ", "TWTR",
       "INTC", "DIS", "WMT"};
-  private double cash = 10000;
+  int shareAmt = 0;
+  private double cashTotal = 10000;              //starting cashTotal for investor
   private double portfolioValue = 0;
   private double networth = 10000;
   private double orderTotal;
   private String ticker = null;
   private String[] price = new String[10];
+
+  /**
+   * creating StockQuote Objects to get prices and price changes to us in the GUI.
+   */
   StockQuote tsla = new StockQuote("TSLA");
   StockQuote ge = new StockQuote("GE");
   StockQuote snap = new StockQuote("SNAP");
@@ -103,10 +115,14 @@ public class Controller {
   StockQuote walmart = new StockQuote("WMT");
 
   public Controller() {
-
   }
 
-
+  /**
+   * updatePrices is attached to the update button on the GUI and refreshes the prices and price
+   * changes to get the most up to date prices for the user.
+   *
+   * @Author Colin Joyce
+   */
   @FXML
   private void updatePrices() {
 
@@ -150,31 +166,40 @@ public class Controller {
     walmartPriceChange.setText(walmart.getPriceChange());
     price[9] = walmart.getPrice();
 
+    updateHoldings();
+    date.setText(new Date().toString());        //keep date/time current
   }
 
+  /**
+   * onStockBuy is attached to the buy button, whenever the buttoned is
+   * pressed this method calls a orderinfo() and then checks if
+   * the user has enough funds and if they do it will process the buy order.
+   * @Author Colin Joyce
+   */
   @FXML
   public void onStockBuy() {
     orderInfo();
-    if (orderTotal < cash) {
-      cash -= orderTotal;
+    if (orderTotal < cashTotal) {
+      cashTotal -= orderTotal;
       portfolioValue += orderTotal;
+      Holdings hold = new Holdings(shareAmt, ticker, holdings);
+      hold.setHoldings();
+      netWorthCalc();
+      updatePrices();
     } else {
-      ErrorCode.setText("Not enough Cash for order");
+      errorCode.setText("Not enough cash for order");
     }
-    netWorthCalc();
-    updatePrices();
+
   }
 
 
   private void orderInfo() {
     String value;
-
-    int shareAmt = 0;
     try {
       ticker = userTickerSymbol.getText();
       shareAmt = Integer.parseInt(userShareAmt.getText());
     } catch (NumberFormatException e) {
-      ErrorCode.setText("Please enter valid Share amount");
+      errorCode.setText("Please enter valid Share amount");
     }
 
     for (int i = 0; i < tickerSymbols.length; i++) {
@@ -185,33 +210,98 @@ public class Controller {
       }
     }
 
-    //   ErrorCode.setText("Please enter valid ticker Symbol");
+    //   errorCode.setText("Please enter valid ticker Symbol");
   }
 
-  private void updateHoldings(int shareAmt){
-    holdingsTwo.setText(ticker + " " + shareAmt);
+  private void updateHoldings() {
+    holdings.add(holdingsTwo);
+    holdings.add(holdingsThree);
+    holdings.add(holdingsFour);
+    holdings.add(holdingsFive);
+    holdings.add(holdingsSix);
+    holdings.add(holdingsSeven);
+    holdings.add(holdingsEight);
+    holdings.add(holdingsNine);
+    holdings.add(holdingsTen);
+
+    // using this to avoid making holdings grow in size as more elements are added to it.
+    ArrayList<Text> newList = new ArrayList<Text>();
+
+    // Traverse through the first list
+    for (Text element : holdings) {
+
+      // If this element is not present in newList
+      // then add it
+      if (!newList.contains(element)) {
+
+        newList.add(element);
+      }
+    }
+    holdings = newList;
   }
 
-
+  /**
+   * onStockSell is attached to the sell button and it lets the user sell their
+   * stocks while checking they actually own them.
+   *
+   * @Author Colin Joyce
+   */
   @FXML
   public void onStockSell() {
-
-     orderInfo();
-
-     cash += orderTotal;
-     portfolioValue -= orderTotal;
-
-
-
-     netWorthCalc();
+    int holdingAmt;
+    int sellingAmt = Integer.parseInt(userShareAmt.getText());
+    String val;
+    Text temp;
+    orderInfo();
+    /*
+     * make sure user has stock in there portfolio to be able to sell.
+     * */
+    for (int i = 0; i < holdings.size(); i++) {
+      temp = holdings.get(i);
+      val = temp.getText();
+      if (val.equals("")) {   //checks holdings if they own the stock they want to sell
+        errorCode.setText("You can't sell stock you don't have");
+      } else if (val.substring(0, ticker.length()).equals(ticker)) {
+        //check if they own the particular stock
+        val = val.substring(ticker.length() + 2);
+        holdingAmt = Integer.parseInt(val);
+        if (holdingAmt >= sellingAmt) {
+          //check if they are selling a valid amount of shares.
+          holdingAmt -= sellingAmt;
+          if (holdingAmt <= 0) {
+            //if not a valid amount of shares a error message is triggered.
+            errorCode.setText("Not Enough Stocks in your holdings to sell.");
+            temp.setText("");
+            break;
+          }
+          temp.setText(ticker + ": " + holdingAmt);
+          //amount of stocks they own is adjusted after the sell order
+          holdings.set(i, temp);
+        } else {
+          errorCode.setText("Not Enough Stocks in your holdings to sell.");
+        }
+        errorCode.setText("");
+        break;
+      }
+    }
+    if (portfolioValue - orderTotal >= 0) { //prevents portfolio value from going negative
+      cashTotal += orderTotal;
+      portfolioValue -= orderTotal;
+      netWorthCalc();
+    }
   }
 
+  /**
+   * netWorthCalc is called after either a buy/sell order is select.
+   * It updates the textfields to show user their portfolio value,
+   * cashTotal and net worth.
+   *
+   * @Author Colin Joyce
+   */
   private void netWorthCalc() {
-    networth = cash + portfolioValue;
-    netWorth.setText(Double.toString(networth));
-    Cash.setText(Double.toString(cash));
-    portValue.setText(Double.toString(portfolioValue));
+    networth = cashTotal + portfolioValue;
+    netWorth.setText(String.format("%.2f", networth));
+    cash.setText(String.format("%.2f", cashTotal));
+    portValue.setText(String.format("%.2f", portfolioValue));
   }
-
-
 }

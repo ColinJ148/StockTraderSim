@@ -1,0 +1,44 @@
+#buyBtn{
+  -fx-background-color: #4CAF50;
+  -fx-font-size: 12px;
+  -fx-border-radius: 12px;
+  -fx-text-fill: white;
+}
+#sellBtn{
+  -fx-background-color: #ff3c38;
+  -fx-font-size: 12px;
+  -fx-border-radius: 12px;
+  -fx-text-fill: white;
+}
+#holdings{
+  -fx-font-size: 14;
+  -fx-underline: true;
+}
+#update{
+  -fx-content-display: center;
+}
+
+#topColume{
+  -fx-font-size: 14px;
+  -fx-underline: true;
+}
+
+#tableContents{
+  -fx-font-size: 12px;
+  -fx-padding: 2px;
+}
+
+#errorCode{
+  -fx-font-size: 20;
+  -fx-text-fill: red;
+}
+#goodPrice{
+  -fx-text-fill: green;
+}
+
+#badPrice{
+  -fx-text-fill: red;
+}
+
+
+
